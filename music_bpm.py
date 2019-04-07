@@ -2,7 +2,7 @@
 This script is intended to pull down tempo, bpm, of all iTunes songs
 Each song will be the instance of a song class
 It will use the mutagen library to pull the metadata
-It will then use the getsongbpm API to try to pull down the tempo, BPM
+It will then use the https://getsongbpm.com API to try to pull down the tempo/BPM
 """
 
 import os, sys, json, mutagen, argparse
