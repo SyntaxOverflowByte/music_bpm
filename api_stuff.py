@@ -18,3 +18,6 @@ Artist infos.
 api_key (required): your API key
 id (required): song ID
 Details about a song.
+
+
+api_key = 4a45338f3b72c92981ea4c26c94ebf61

@@ -8,6 +8,12 @@ MUSIC_BASE = os.path.join('D:\\', 'Shaun', 'Music', 'iTunes', 'iTunes Media', 'M
 
 file_extensions = ['.m4a', '.m4p', '.m4v', '.mp3', '.mpg', '.wav']
 
+file_list = []
+file_json = []
+
+with open(os.path.join(this_dir, 'file_error_list.txt'), 'r') as f:
+	file_list = f.readlines()
+
 def scanFiles(filepath):
 	artists_set = set()
 	no_artist = []
@@ -22,3 +28,22 @@ def scanFiles(filepath):
 				except:
 					no_artist.append(file_path)
 	return artists_set, no_artist
+	
+def scan_err_files(filepath):
+	name = os.path.split(filepath)[1]
+	file_dict = {}
+	file_dict['name'] = name.strip()
+	file_dict['path'] = filepath.strip()
+	try:
+		tags = mutagen.File(filepath.strip(), easy=True)
+		file_dict['field_count'] = len(tags)
+	except:
+		file_dict['field_count'] = 0
+	return file_dict
+
+def out_to_json(filelist=file_list):
+	filejson = []
+	for i, line in enumerate(filelist):
+		filejson.append(scan_err_files(line))
+	return filejson
+

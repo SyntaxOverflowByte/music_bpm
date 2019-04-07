@@ -11,14 +11,18 @@ import os, sys, json, mutagen, argparse
 this_dir = os.path.split(os.path.abspath(__file__))[0]
 sys.path.append(this_dir)
 import mut_keys 
+import network_interaction
 
 MUSIC_BASE = os.path.join('D:\\', 'Shaun', 'Music', 'iTunes', 'iTunes Media', 'Music')
-acdc_path = os.path.join(MUSIC_BASE, 'AC_DC', 'Warning! High Voltage')
-song1_path = os.path.join(acdc_path, os.listdir(acdc_path)[0])
+gb_base = os.path.join(MUSIC_BASE, 'Garth Brooks', "Ropin' The Wind")
+gb_list = []
+
+for i, filename in enumerate(os.listdir(gb_base)):
+	gb_list.append(os.path.join(gb_base, filename))
+
+
 file_extensions = ['.m4a', '.m4p', '.m4v', '.mp3', '.mpg', '.wav']
 
-# TODO import urllib3 and get API key
-# TODO use urllib3 and API key to look up bpm
 
 class Song(object):
 
@@ -34,10 +38,12 @@ class Song(object):
 	def __init__(self, path):
 		self.path = path
 		self.song = None
+		self.songID = None
 		self.tempo = None
 		self.title = None
 		self.album = None
 		self.artist = None
+		self.artistID = None
 		self.flag = False
 		
 		Song.num_of_songs += 1
